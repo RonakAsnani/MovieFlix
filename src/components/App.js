@@ -10,21 +10,22 @@ class App extends React.Component {
   componentDidMount(){
     const {store} = this.props;
     store.subscribe(() => {
-      console.log('Updated');
+     // console.log('Updated');
       this.forceUpdate(); // not recommended 
-      //console.log(this.props.store.getState());
+      console.log(this.props.store.getState());
     })
     // make api call
     // dispatch actions
     store.dispatch(addMovies(data))
 
-    //console.log(this.props.store.getState());
+     console.log(this.props.store.getState());
   }
 
   isMovieFavourite = (movie) => {
-    const {favourites} = this.props.store.getState();
+    const {movies} = this.props.store.getState();
 
-    const index = favourites.indexOf(movie);
+
+    const index = movies.favourites.indexOf(movie);
     if(index !== -1){
       // found the movie
       return true;
@@ -35,13 +36,14 @@ class App extends React.Component {
     this.props.store.dispatch(setFavourite(val));
   }
   render(){
-  const {list, favourites, setFavourites} = this.props.store.getState(); // {list: [], favourites: []}
+    const {movies, search} = this.props.store.getState();
+  const {list, favourites, setFavourites} = movies; //{movies: {},search:{}}
    // console.log(favourites);
   
     const displayMovies= setFavourites ? favourites : list
   return (
     <div className="App">
-      <Navbar/>
+      <Navbar search={search} dispatch={this.props.store.dispatch}/>
       <div className="main">
         <div className="tabs">
           <div className={`tab ${setFavourites ? '' : 'active-tabs'}`} onClick={() => this.onChangeTab(false)}>Movies</div>
