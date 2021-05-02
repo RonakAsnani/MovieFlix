@@ -9,7 +9,7 @@ const initialMovieState = {
 }
 
 export function movies (state = initialMovieState,action){
-    console.log('MOVIE_REDUCER');
+   // console.log('MOVIE_REDUCER');
     // if(action.type === ADD_MOVIES){
     //     return {
     //         ...state,
@@ -31,7 +31,7 @@ export function movies (state = initialMovieState,action){
             }
         case REM_FAVOURITE:
             const index = state.favourites.indexOf(action.movie);
-            if(index != -1){
+            if(index !== -1){
                     state.favourites.splice(index,1);
             }
             return {

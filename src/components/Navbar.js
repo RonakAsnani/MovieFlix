@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+// import { connect} from '..';
 import {addMovieToList, handleMovieSearch} from '../actions';
 
 
@@ -19,9 +21,9 @@ class Navbar extends React.Component {
     
        // console.log('ooo',this.props);
         this.props.dispatch(addMovieToList(movie));
-        // this.setState ({
-        //     showSearchResults: false
-        // })
+        this.setState ({
+            showSearchResults: false
+        })
     }
     
     handleSearch = () => {
@@ -51,7 +53,7 @@ class Navbar extends React.Component {
                                 <img src={movie.Poster} alt="search pic"/>
                                 <div className="movie-info">
                                     <span>{movie.Title}</span>
-                                    <button onClick={() => this.handleAddMovies(movie)}>
+                                    <button className="favourite-btn" onClick={() => this.handleAddMovies(movie)}>
                                         Add to Movies
                                     </button>
                                 </div>
@@ -65,4 +67,24 @@ class Navbar extends React.Component {
   
 }
 
-export default Navbar;
+// class NavbarWrapper extends React.Component{
+//     render(){
+//         return (
+//             <StoreContext.Consumer>
+//                 {(store) => 
+//                     <Navbar search={this.props.search} dispatch={store.dispatch} />
+//                 }
+//             </StoreContext.Consumer>
+//         )
+//     }
+// }
+
+// export default NavbarWrapper;
+
+function mapStateToProps(state){
+    return {
+        search: state.search
+    }
+}
+
+export default connect(mapStateToProps)(Navbar);
